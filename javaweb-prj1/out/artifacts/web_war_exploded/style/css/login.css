@@ -1,0 +1,9 @@
+input[type=password]{
+    margin-left: 16px;
+}
+input[type=submit]{
+    margin-left: 113px;
+}
+input[type=reset]{
+    margin-left: 75px;
+}
