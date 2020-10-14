@@ -5,18 +5,18 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
+    <!--登录路径配置-->
     <package name="strutsBean" extends="struts-default" namespace="/">
-        <action name="login" class="cn.edu.zjut.action.UserAction">
+        <!--加入method进行登陆的业务-->
+        <action name="login" class="cn.edu.zjut.action.UserAction" method="login">
             <result name="success">/loginSuccess.jsp</result>
             <result name="fail">/loginFail.jsp</result>
         </action>
-    </package>
-    <!--
-    <package name="strutsBean" extends="struts-default" namespace="/">
-        <action name="register" class="cn.edu.zjut.action.UserAction">
+        <!--注册路径配置-->
+        <!--加入method进行注册业务-->
+        <action name="register" class="cn.edu.zjut.action.UserAction" method="register">
             <result name="success">/regSuccess.jsp</result>
             <result name="fail">/regFail.jsp</result>
         </action>
     </package>
-    -->
 </struts>

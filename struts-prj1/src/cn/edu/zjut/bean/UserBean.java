@@ -1,5 +1,5 @@
 package cn.edu.zjut.bean;
-
+//保存信息的bean的编写
 public class UserBean {
     private String account="";
     private String password="";
