@@ -9,17 +9,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>注册成功</title>
+    <title><s:text name="registerSuccess"/></title>
 </head>
 <body>
 <s:property value="registerUser.name"/>
 <s:if test="%{registerUser.sex==\"1\"}">
-    <s:text name="先生，"/>
+    <s:text name="Mister"/>
 </s:if>
 <s:else>
-    <s:text name="女士，"/>
+    <s:text name="Madam"/>
 </s:else>
-您注册成功了！
+<s:text name="registerSuccess.info"/>
 <s:set var="user" value="loginUser" scope="session" />
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Chital
@@ -9,9 +10,9 @@
 <html>
 <!--登录失败页面-->
 <head>
-    <title>登录失败</title>
+    <title><s:text name="loginFail"/></title>
 </head>
 <body>
-登录失败
+<s:text name="loginFail"/>
 </body>
 </html>

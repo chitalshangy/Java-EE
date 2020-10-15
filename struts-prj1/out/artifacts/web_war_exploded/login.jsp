@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Chital
@@ -15,19 +16,27 @@
 <form action="login" method="post">
     <table>
         <tr>
-            <td>请输入用户名：</td>
-            <td><input name="loginUser.account" type="text"></td>
+            <!--<td>请输入用户名：</td>-->
+            <td><!--<input name="loginUser.account" type="text">-->
+                <s:textfield name="loginUser.account" key="login.account.lable"/>
+            </td>
         </tr>
         <tr>
-            <td>请输入密码：</td>
-            <td><input name="loginUser.password" type="password"></td>
+            <!--<td>请输入密码：</td>-->
+            <td><!--<input name="loginUser.password" type="password">-->
+                <s:password name="loginUser.password" key="login.password.lable"/>
+            </td>
         </tr>
         <tr>
             <td>
-                <input type="submit" value="登录">
-                <input type="button" value="注册" onclick="window.location.href='register.jsp'">
+                <s:submit name="submit" key="login.submit.button"/>
+                <!--<input type="submit" value="登录">-->
+                <!--<input type="button"value="注册" onclick="window.location.href='register.jsp'">-->
             </td>
-            <td><input type="reset" value="取消"></td>
+            <td>
+                <s:reset name="reset" key="login.reset.button"/>
+                <!--<input type="reset" value="取消">-->
+            </td>
         </tr>
     </table>
 </form>

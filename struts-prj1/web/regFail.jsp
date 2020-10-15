@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Chital
@@ -8,9 +9,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>注册失败</title>
+    <title><s:text name="registerFail"/></title>
 </head>
 <body>
-注册失败
+<s:text name="registerFail"/>
 </body>
 </html>
