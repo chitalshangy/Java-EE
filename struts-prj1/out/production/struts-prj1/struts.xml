@@ -5,6 +5,8 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
+    <constant name="struts.custom.i18n.resources" value="cn.edu.zjut.local.message"/>
+    <constant name="struts.i18n.encoding" value="GBK" />
     <!--登录路径配置-->
     <package name="strutsBean" extends="struts-default" namespace="/">
         <!--加入method进行登陆的业务-->
