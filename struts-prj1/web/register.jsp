@@ -19,7 +19,7 @@
     <s:password name="registerUser.password" key="login.password.lable"/>
     <s:password name="registerUser.repassword" key="register.repassword.lable"/>
     <s:textfield name="registerUser.name" key="register.name.lable"/>
-    <s:radio name="registerUser.sex" list="#{1  : '男', 0 : '女'}" key="register.sex.lable"/>
+    <s:radio name="registerUser.sex" list="#{1  : getText('male'), 0 : getText('female')}" key="register.sex.lable"/>
     <sx:datetimepicker name="registerUser.birthday" displayFormat="yyyy-MM-dd" key="register.birthday.lable"/>
     <s:textfield name="registerUser.address" key="register.address.lable"/>
     <s:textfield name="registerUser.phone" key="register.phone.lable"/>
