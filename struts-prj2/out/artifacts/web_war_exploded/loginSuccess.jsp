@@ -15,5 +15,6 @@
 <body>
 <s:text name="登录成功"/>
 <s:property value="getCount()"/>
+111
 </body>
 </html>

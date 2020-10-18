@@ -11,7 +11,7 @@
         <!--指明可以全局调用的方法名-->
         <!--<global-allowed-methods>login,register</global-allowed-methods>-->
         <action name="login" class="cn.edu.zjut.action.UserAction" method="login">
-            <result name="loginsuccess">/loginSuccess.jsp</result>
+            <result name="loginsuccess" type="redirect">/loginSuccess.jsp</result>
             <result name="loginfail">/loginFail.jsp</result>
         </action>
         <action name="register" class="cn.edu.zjut.action.UserAction" method="register">
