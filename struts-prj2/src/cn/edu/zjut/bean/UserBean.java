@@ -1,12 +1,15 @@
 package cn.edu.zjut.bean;
 
+import java.util.Date;
+
+//保存信息的bean的编写
 public class UserBean {
     private String account="";
     private String password="";
     private String repassword="";
     private String name="";
     private String sex="";
-    private String birthday="";
+    private Date birthday;
     private String address="";
     private String phone="";
     private String email="";
@@ -51,11 +54,11 @@ public class UserBean {
         this.sex = sex;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

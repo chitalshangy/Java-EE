@@ -5,18 +5,24 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-    <!--动态方法调用需要添加常量指明可以动态调用方法-->
-    <!--<constant name="struts.enable.DynamicMethodInvocation" value="true"></constant>-->
+    <constant name="struts.custom.i18n.resources" value="cn.edu.zjut.local.message"/>
+    <constant name="struts.i18n.encoding" value="GBK" />
+    <!--登录路径配置-->
     <package name="strutsBean" extends="struts-default" namespace="/">
-        <!--指明可以全局调用的方法名-->
-        <!--<global-allowed-methods>login,register</global-allowed-methods>-->
+        <!--加入method进行登陆的业务-->
         <action name="login" class="cn.edu.zjut.action.UserAction" method="login">
-            <result name="loginsuccess" type="redirect">/loginSuccess.jsp</result>
-            <result name="loginfail">/loginFail.jsp</result>
+            <result name="success">/loginSuccess.jsp</result>
+            <result name="fail">/login.jsp</result>
+            <!--增加validate()路径配置-->
+            <result name="input">/login.jsp</result>
         </action>
+        <!--注册路径配置-->
+        <!--加入method进行注册业务-->
         <action name="register" class="cn.edu.zjut.action.UserAction" method="register">
-            <result name="regsuccess">/regSuccess.jsp</result>
-            <result name="regfail">/regFail.jsp</result>
+            <result name="success">/regSuccess.jsp</result>
+            <result name="fail">/regFail.jsp</result>
+            <!--增加validate()路径配置-->
+            <result name="input">/register.jsp</result>
         </action>
     </package>
 </struts>
