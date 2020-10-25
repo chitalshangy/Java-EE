@@ -10,10 +10,27 @@
         <interceptors>
             <interceptor name="authority" class="cn.edu.zjut.interceptors.AuthorityInterceptor"/>
         </interceptors>
+
+        <!--通过全局方式进行异常映射-->
+        <global-results>
+            <result name="sqlExcp">/loginException.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.sql.SQLException" result="sqlExcp"/>
+        </global-exception-mappings>
+
         <!--登录路径-->
         <action name="login" class="cn.edu.zjut.action.UserAction" method="login">
+            <!--使用局部方式进行异常映射-->
+            <exception-mapping exception="cn.edu.zjut.exception.UserException" result="userExcp"/>
+            <result name="userExcp">/loginException.jsp</result>
+
             <result name="success">/loginSuccess.jsp</result>
             <result name="fail">/login.jsp</result>
+            <!--
+            抛出异常转发路径配置
+            <result name="exception">/loginException.jsp</result>
+            -->
         </action>
         <!--显示书籍信息-->
         <action name="allItems" class="cn.edu.zjut.action.ItemAction" method="getAllItems">

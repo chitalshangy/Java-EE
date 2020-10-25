@@ -18,17 +18,27 @@ public class UserAction {
     //获取session
     private Map session;
     //登录
-    public String login(){
+    public String login() throws Exception {
         //获取信息
         ActionContext ctx=ActionContext.getContext();
         session=(Map)ctx.getSession();
 
         //新建登录用户
         UserService userServ=new UserService();
-        if(userServ.login(loginUser)){
-            session.put("user",loginUser.getAccount());
-            return "success";
+        try{
+            if(userServ.login(loginUser)){
+                session.put("user",loginUser.getAccount());
+                return "success";
+            }
+            else return "fail";
         }
-        return "fail";
+        catch (Exception e){
+            /*捕获异常，跳转视图
+            e.printStackTrace();
+            return "exception";
+            */
+            /*将异常交给框架*/
+            throw e;
+        }
     }
 }

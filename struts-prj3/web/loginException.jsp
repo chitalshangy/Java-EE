@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Chital
@@ -11,6 +12,6 @@
     <title>登录异常</title>
 </head>
 <body>
-
+异常信息：<s:property value="exception.message"/>
 </body>
 </html>
