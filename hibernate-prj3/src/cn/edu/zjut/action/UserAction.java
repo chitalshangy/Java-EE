@@ -25,7 +25,7 @@ public class UserAction {
     //删除地址
     public String delAddr(){
         UserService userServ = new UserService();
-        if (userServ.delAddr(loginUser, address))
+        if (userServ.delAddr(loginUser,address))
             return "success";
         else
             return "fail";

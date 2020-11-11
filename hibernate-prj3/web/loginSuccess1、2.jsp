@@ -20,34 +20,40 @@
     <tr><td>用户性别：</td><td><s:property value="#request.loginUser.sex"/> </td></tr>
     <tr><td>用户生日：</td><td><s:property value="#request.loginUser.birthday"/> </td></tr>
     <tr><td>用户电子邮件：</td><td><s:property value="#request.loginUser.email"/> </td></tr>
+
+<s:iterator value="#request.loginUser.addresses" status="st">
+    <tr><td>地址<s:property value="#st.count"/>：</td></tr>
+    <tr><td>详细地址：</td><td><s:property value="detail" /></td></tr>
+    <tr><td>邮政编码：</td><td><s:property value="zipcode" /></td></tr>
+    <tr><td>电话：</td><td><s:property value="phone"/> </td></tr>
+    <tr><td>地址类型：</td><td><s:property value="type"/> </td></tr>
+</s:iterator>
 </table>
 <hr>
 <table>
-<s:if test="#request.loginUser.addressid">
+    <s:iterator value="#request.loginUser.addresses" status="st">
     <s:form action="delAddr" method="post">
     <s:hidden name="loginUser.customerId" value="%{#request.loginUser.customerId}"/>
     <s:hidden name="address.addressId" value="%{addressId}"/>
+    <tr><td>地址<s:property value="#st.count"/>：</td><tr>
     <tr><td>详细地址：</td><td><s:property value="detail" /></td><tr>
     <tr><td>邮政编码：</td><td><s:property value="zipcode" /></td></tr>
     <tr><td>电话：</td><td><s:property value="phone"/> </td></tr>
     <tr><td>地址类型：</td><td><s:property value="type"/> </td></tr>
     <tr><td><s:submit value="删除"/></td><tr>
     </s:form>
-</s:if>
+    </s:iterator>
 </table>
 <hr>
-<table>
-<s:else>
-    添加新地址：<p>
+添加新地址：<p>
     <s:form action="addAddr" method="post">
-    <s:hidden name="loginUser.customerId" value="%{#request.loginUser.customerId}"/>
-    <s:textfield name="address.detail" label="详细地址" />
-    <s:textfield name="address.zipcode" label="邮政编码" />
-    <s:textfield name="address.phone" label="联系电话" />
-    <s:textfield name="address.type" label="地址类型（office,home,etc.）" />
-    <s:submit value="添加"/>
+        <s:hidden name="loginUser.customerId" value="%{#request.loginUser.customerId}"/>
+        <s:textfield name="address.detail" label="详细地址" />
+        <s:textfield name="address.zipcode" label="邮政编码" />
+        <s:textfield name="address.phone" label="联系电话" />
+        <s:textfield name="address.type" label="地址类型（office,home,etc.）" />
+        <s:submit value="添加"/>
     </s:form>
-</s:else>
-</table>
 </body>
+
 </html>

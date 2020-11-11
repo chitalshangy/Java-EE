@@ -34,30 +34,70 @@ public class UserService {
         }
     }
 
+    //添加地址
     public boolean addAddr(Customer loginUser, Address address) {
         ActionContext ctx= ActionContext.getContext();
         request=(Map) ctx.get("request");
+        //CustomerDAO c_dao = new CustomerDAO();
+        //loginUser = (Customer)c_dao.findById(loginUser.getCustomerId());
+        //address.setCustomer(loginUser);//注释1
+        //loginUser.getAddresses().add(address);
         CustomerDAO c_dao = new CustomerDAO();
         loginUser = (Customer)c_dao.findById(loginUser.getCustomerId());
-        //address.setCustomer(loginUser);//注释1
-        loginUser.getAddresses().add(address);
+        address.setCust_id(loginUser);
         Transaction tran = null;
+        AddressDAO a_dao=new AddressDAO();
         try {
+            /*
             tran = c_dao.getSession().beginTransaction();
             c_dao.update(loginUser);
             tran.commit();
             request.put("loginUser", loginUser);
             request.put("tip", "添加地址成功！");
+            */
+            tran = a_dao.getSession().beginTransaction();
+            c_dao.update(loginUser);
+            a_dao.save(address);
+            loginUser.setAddressid(address);
+            tran.commit();
             return true;
         } catch (Exception e) {
             if(tran != null) tran.rollback();
             return false;
         } finally {
-            c_dao.getSession().close();
+            //c_dao.getSession().close();
+            a_dao.getSession().close();
         }
     }
 
+    //删除联系
     public boolean delAddr(Customer loginUser, Address address){
-
+        /*
+        ActionContext ctx= ActionContext.getContext();
+        request=(Map) ctx.get("request");
+        CustomerDAO c_dao = new CustomerDAO();
+        loginUser = (Customer)c_dao.findById(loginUser.getCustomerId());
+        */
+        Transaction tran = null;
+        AddressDAO a_dao=new AddressDAO();
+        try {
+            /*
+            tran=c_dao.getSession().beginTransaction();
+            Address a=c_dao.getSession().get(Address.class,address.getAddressId());
+            loginUser.getAddresses().remove(a);
+            tran.commit();
+            */
+            tran=a_dao.getSession().beginTransaction();
+            a_dao.delete(address);
+            tran.commit();
+            return true;
+        } catch (RuntimeException re) {
+            if(tran != null) tran.rollback();
+            return false;
+        }
+        finally {
+            //c_dao.getSession().close();
+            a_dao.getSession().close();
+        }
     }
 }

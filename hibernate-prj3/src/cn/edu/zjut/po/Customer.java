@@ -14,12 +14,13 @@ public class Customer {
     private String sexStr;
     private Date birthday;
     private String email;
-    private Set addresses = new HashSet(0);
+    //private Set<Address> addresses = new HashSet(0);
+    private Address addressid;
 
     public Customer() {
     }
 
-    public Customer(int customerId, String account, String password, String repassword, String name, Boolean sex, String sexStr, Date birthday, String email, Set addresses) {
+    public Customer(int customerId, String account, String password, String repassword, String name, Boolean sex, String sexStr, Date birthday, String email, Address addressid) {
         this.customerId = customerId;
         this.account = account;
         this.password = password;
@@ -29,7 +30,8 @@ public class Customer {
         //this.sexStr = sexStr;
         this.birthday = birthday;
         this.email = email;
-        this.addresses = addresses;
+        //this.addresses = addresses;
+        this.addressid=addressid;
     }
 
     public int getCustomerId() {
@@ -103,12 +105,22 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public Set getAddresses() {
+    /*
+    public Set<Address> getAddresses() {
         return addresses;
     }
 
     public void setAddresses(Set addresses) {
         this.addresses = addresses;
     }
+    */
+
+    public Address getAddressid() {
+        return addressid;
+    }
+
+    public void setAddressid(Address addressid) {
+        this.addressid = addressid;
+    }
+
 }

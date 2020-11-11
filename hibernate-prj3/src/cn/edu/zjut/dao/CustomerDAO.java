@@ -1,9 +1,12 @@
 package cn.edu.zjut.dao;
 import java.util.List;
+
+import cn.edu.zjut.po.Address;
 import org.hibernate.Query;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import cn.edu.zjut.po.Customer;
+import org.hibernate.Transaction;
 
 public class CustomerDAO extends BaseHibernateDAO{
     private Log log = LogFactory.getLog(CustomerDAO.class);

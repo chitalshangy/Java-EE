@@ -12,5 +12,9 @@
             <result name="success">/loginSuccess.jsp</result>
             <result name="fail">/login.jsp</result>
         </action>
+        <action name="delAddr" class="cn.edu.zjut.action.UserAction" method="delAddr">
+            <result name="success">/loginSuccess.jsp</result>
+            <result name="fail">/login.jsp</result>
+        </action>
     </package>
 </struts>
