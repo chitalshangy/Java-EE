@@ -56,9 +56,9 @@ public class UserService {
             request.put("tip", "添加地址成功！");
             */
             tran = a_dao.getSession().beginTransaction();
-            c_dao.update(loginUser);
             a_dao.save(address);
-            loginUser.setAddressid(address);
+            loginUser.setAddressid(a_dao.findById(loginUser));
+            c_dao.update(loginUser);
             tran.commit();
             return true;
         } catch (Exception e) {
@@ -71,6 +71,7 @@ public class UserService {
     }
 
     //删除联系
+    //删除地址
     public boolean delAddr(Customer loginUser, Address address){
         /*
         ActionContext ctx= ActionContext.getContext();
@@ -78,8 +79,11 @@ public class UserService {
         CustomerDAO c_dao = new CustomerDAO();
         loginUser = (Customer)c_dao.findById(loginUser.getCustomerId());
         */
-        Transaction tran = null;
+        CustomerDAO c_dao = new CustomerDAO();
         AddressDAO a_dao=new AddressDAO();
+        loginUser = (Customer)c_dao.findById(loginUser.getCustomerId());
+        address = (Address)a_dao.findById(loginUser);
+        Transaction tran = null;
         try {
             /*
             tran=c_dao.getSession().beginTransaction();

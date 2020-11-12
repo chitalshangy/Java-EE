@@ -23,6 +23,17 @@ public class AddressDAO extends BaseHibernateDAO{
         }
     }
 
+    //根据cust_id查找address
+    public Address findById(Customer Id){
+        try {
+            String queryString = "from Address  where cust_id=?0";
+            Query queryObject=getSession().createQuery(queryString).setParameter(0,Id);
+            return (Address)queryObject.uniqueResult();
+        } catch (RuntimeException re) {
+            log.error("find by id failed", re);
+            throw re;
+        }
+    }
     //保存
     public void save(Address instance) {
         log.debug("saving Address instance");

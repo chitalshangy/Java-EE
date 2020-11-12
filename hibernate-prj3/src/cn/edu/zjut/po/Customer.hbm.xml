@@ -29,6 +29,6 @@
         <property name="email" type="java.lang.String">
             <column name="email"/>
         </property>
-        <one-to-one name="addressid" class="cn.edu.zjut.po.Address" cascade="all" property-ref="cust_id"/>
+        <one-to-one name="addressid" class="cn.edu.zjut.po.Address" cascade="all"/>
     </class>
 </hibernate-mapping>
