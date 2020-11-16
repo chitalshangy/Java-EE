@@ -26,11 +26,10 @@
 <s:if test="#request.loginUser.addressid">
     <s:form action="delAddr" method="post">
     <s:hidden name="loginUser.customerId" value="%{#request.loginUser.customerId}"/>
-    <s:hidden name="address.addressId" value="%{addressId}"/>
-    <tr><td>详细地址：</td><td><s:property value="detail" /></td><tr>
-    <tr><td>邮政编码：</td><td><s:property value="zipcode" /></td></tr>
-    <tr><td>电话：</td><td><s:property value="phone"/> </td></tr>
-    <tr><td>地址类型：</td><td><s:property value="type"/> </td></tr>
+    <tr><td>详细地址：</td><td><s:property value="#request.loginUser.addressid.detail" /></td><tr>
+    <tr><td>邮政编码：</td><td><s:property value="#request.loginUser.addressid.zipcode" /></td></tr>
+    <tr><td>电话：</td><td><s:property value="#request.loginUser.addressid.phone"/> </td></tr>
+    <tr><td>地址类型：</td><td><s:property value="#request.loginUser.addressid.type"/> </td></tr>
     <tr><td><s:submit value="删除"/></td><tr>
     </s:form>
 </s:if>

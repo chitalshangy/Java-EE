@@ -56,8 +56,11 @@ public class UserService {
             request.put("tip", "添加地址成功！");
             */
             tran = a_dao.getSession().beginTransaction();
+            //a_dao.save(address);
+            //loginUser.setAddressid(a_dao.findById(loginUser));
+            //c_dao.update(loginUser);
+            loginUser.setAddressid(address);
             a_dao.save(address);
-            loginUser.setAddressid(a_dao.findById(loginUser));
             c_dao.update(loginUser);
             tran.commit();
             return true;
@@ -83,6 +86,7 @@ public class UserService {
         AddressDAO a_dao=new AddressDAO();
         loginUser = (Customer)c_dao.findById(loginUser.getCustomerId());
         address = (Address)a_dao.findById(loginUser);
+        loginUser.setAddressid(null);
         Transaction tran = null;
         try {
             /*
