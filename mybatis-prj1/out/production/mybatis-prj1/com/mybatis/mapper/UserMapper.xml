@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//Mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.UserMapper">
+    <select id="selectUserById" parameterType="Integer" resultType="com.mybatis.po.MyUser">
+        SELECT * from user where uid=#{uid}
+    </select>
+    <select id="selectAllUser" resultType="map">
+        SELECT * from user
+    </select>
+    <select id="selectResultMap" resultMap="myResult">
+        Select * from user
+    </select>
+    <insert id="addUser" parameterType="com.mybatis.po.MyUser">
+        INSERT into user (uid,uname,usex) value (#{uid},#{uname},#{usex})
+    </insert>
+    <update id="updateUser" parameterType="com.mybatis.po.MyUser">
+        update user set uname=#{uname}, usex=#{usex} where uid=#{uid}
+    </update>
+    <delete id="deleteUser" parameterType="Integer">
+        delete from user where uid = #{uid}
+    </delete>
+    <resultMap id="myResult" type="com.pojo.MapUser">
+        <id property="m_uid" column="uid"/>
+        <result property="m_uname" column="uname"/>
+        <result property="m_usex" column="usex"/>
+    </resultMap>
+</mapper>

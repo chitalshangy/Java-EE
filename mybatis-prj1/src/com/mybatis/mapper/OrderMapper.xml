@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//Mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.OrderDao">
+    <!--查询全部-->
+    <resultMap id="olist" type="com.mybatis.po.Order">
+        <!-- 跟一对一一样用association标签,实体类定义的成员,要跟数据库字段名对应上 -->
+        <association property="cust_id" column="cust_id"
+                     select="com.dao.CustomerDao.select"/><!-- 用接口里定义的方法，根据order_item表中的cust_id字段查出对应数据 -->
+
+    </resultMap>
+    <select id="selectAll" resultMap="olist">
+        select * from student
+    </select>
+    <!--根据顾客信息查询订单-->
+    <select id="selectByCust_id" parameterType="Integer" resultType="com.mybatis.po.Order">
+        select * from order_item o where o.cust_id=#{cust_id}
+    </select>
+</mapper>
