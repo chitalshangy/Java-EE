@@ -30,11 +30,11 @@ public class Customer_OrderTest {
 
         List<Customer> list=customerDao.selectAll();
         for(Customer mid:list){
-            System.out.print(mid.getId()+" "+mid.getName()+" "+mid.getPhone()+" ");
+            System.out.print(mid.getId()+" "+mid.getName()+" "+mid.getPhone()+" { ");
             for(Order mid1:mid.getOrderList()){
                 System.out.print(mid1.getContent()+" ");
             }
-            System.out.println();
+            System.out.println("}");
         }
 
         ss.commit();

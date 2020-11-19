@@ -3,16 +3,9 @@
         PUBLIC "-//Mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dao.OrderDao">
-    <!--查询全部-->
-    <resultMap id="olist" type="com.mybatis.po.Order">
-        <association property="cust_id" column="cust_id"
-                     select="com.dao.CustomerDao.select"/>
-    </resultMap>
-    <select id="selectAll" resultMap="olist">
-        select * from student
-    </select>
     <!--根据顾客信息查询订单-->
-    <select id="selectByCust_id" parameterType="Integer" resultType="com.mybatis.po.Order">
+    <select id="selectByCust_id" parameterType="Integer"
+            resultType="com.mybatis.po.Order">
         select * from order_item o where o.cust_id=#{cust_id}
     </select>
 </mapper>
