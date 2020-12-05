@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <!--数据源配置-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/hibernatedb?useSSL=false"/>
+        <property name="username" value="dbuser"/>
+        <property name="password" value="dbpassword"/>
+    </bean>
+
+    <!--增加sessionFactory配置-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQLDialect
+                </prop>
+            </props>
+        </property>
+        <property name="mappingResources">
+            <list>
+                <value>cn/edu/zjut/po/Customer.hbm.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--增加数据库操作基础类配置-->
+    <bean id="baseDAO" class="cn.edu.zjut.dao.BaseHibernateDAO">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- 启动使用注解配置 AOP 支持 -->
+    <aop:aspectj-autoproxy />
+    <bean id="securityHandler" class="cn.edu.zjut.aspect.SecurityHandler" />
+
+    <!--增加对 SecurityHandler2 实例的配置，并使用 XML 配置文件的方式定义切面-->
+    <bean id="securityHandler2" class="cn.edu.zjut.aspect.SecurityHandler2" />
+    <!-- 配置文件的方式 -->
+    <aop:config>
+        <aop:aspect id="security" ref="securityHandler2">
+            <aop:pointcut id="modify" expression="execution(* *.add*(..))" />
+            <aop:before method="checkSecurity" pointcut-ref="modify" />
+        </aop:aspect>
+    </aop:config>
+
+    <!--CustomerDAO 实例-->
+    <bean id="userDAO" class="cn.edu.zjut.dao.CustomerDAO" parent="baseDAO"/>
+
+    <!--UserService 实例-->
+    <bean id="userService" class="cn.edu.zjut.service.UserService">
+        <property name="customerDAO" ref="userDAO" />
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+
+    <!-- 定义增强处理拦截方法 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="del*" propagation="REQUIRED" />
+            <tx:method name="*" read-only="true" />
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 定义事务拦截切面 -->
+    <aop:config>
+        <aop:pointcut id="allServiceMethod" expression="execution(* cn.edu.zjut.service.*.*(..))" />
+        <aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice" />
+    </aop:config>
+
+
+    <!-- 增强处理定义 -->
+    <bean id="logAdvice" class="cn.edu.zjut.advice.LoggingAdvice" />
+    <!--设定代理-->
+    <bean id="logProxy"
+          class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--设定代理的是接口-->
+        <property name="proxyInterfaces">
+            <value>cn.edu.zjut.service.IUserService</value>
+        </property>
+        <!--设定代理的目标类-->
+        <property name="target">
+            <ref bean="userService"/>
+        </property>
+
+        <!--设定切入的 Advice-->
+        <!--添 加 对LoggingInterceptor 的装配-->
+        <property name="interceptorNames">
+            <list>
+                <value>logAdvice</value>
+                <value>logInterceptor</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 增强处理定义 -->
+    <bean id="logInterceptor" class="cn.edu.zjut.advice.LoggingInterceptor" />
+</beans>
